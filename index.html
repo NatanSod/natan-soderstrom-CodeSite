@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <!-- The character page -->
+    <div id="page">
+      <div class="stats">
+        <div class="bonus center">
+          <p>Str</p>
+          <h1 id="str-bonus">+0</h1>
+          <div class="score">
+            <p id="str-score" class="center">10</p>
+          </div>
+        </div>
+
+        <div class="bonus center">
+          <p>Dex</p>
+          <h1 id="dex-bonus">+0</h1>
+          <div class="score">
+            <p id="dex-score" class="center">10</p>
+          </div>
+        </div>
+
+        <div class="bonus center">
+          <p>Con</p>
+          <h1 id="con-bonus">+0</h1>
+          <div class="score">
+            <p id="con-score" class="center">10</p>
+          </div>
+        </div>
+
+        <div class="bonus center">
+          <p>Int</p>
+          <h1 id="int-bonus">+0</h1>
+          <div class="score">
+            <p id="int-score" class="center">10</p>
+          </div>
+        </div>
+
+        <div class="bonus center">
+          <p>Wis</p>
+          <h1 id="wis-bonus">+0</h1>
+          <div class="score">
+            <p id="wis-score" class="center">10</p>
+          </div>
+        </div>
+
+        <div class="bonus center">
+          <p>Cha</p>
+          <h1 id="cha-bonus">+0</h1>
+          <div class="score">
+            <p id="cha-score" class="center">10</p>
+          </div>
+        </div>
+      </div>
+    <div class="box center" id="change-stats">
+      <h1>Change stats</h1>
+    </div>
+    <div class="box center" id="generic-roll">
+      <h1>Roll</h1>
+    </div>
+    </div>
+
+    <!-- Beyond this point is every single popup, the reason for this is that addEventListener doesn't like being called from within any {} -->
+
+    <!-- The popup for showing the results of dice rolls -->
+    <div class="popup hidden" id="roll-dice-popup">
+      <div class="x" id="roll-dice-close"></div>
+      <div class="flex" id="display-roll-results">
+
+      </div>
+    </div>
+
+    <!-- The assign score value from dice roll to a stat popup -->
+    <div class="popup hidden" id="roll-stats-popup">
+      <div class="x" id="roll-stats-close"></div>
+      <div class="flex">
+        <div>
+          <div class="bonus center">
+            <h1 id="stat1show"></h1>
+          </div>
+          <select name="stat" class="chose-stat" id="stat1">
+            <option value="--">--</option>
+          </select>
+        </div>
+        <div>
+          <div class="bonus center">
+            <h1 id="stat2show"></h1>
+          </div>
+          <select name="stat" class="chose-stat" id="stat2">
+            <option value="--">--</option>
+          </select>
+        </div>
+        <div>
+          <div class="bonus center">
+            <h1 id="stat3show"></h1>
+          </div>
+          <select name="stat" class="chose-stat" id="stat3">
+            <option value="--">--</option>
+          </select>
+        </div>
+        <div>
+          <div class="bonus center">
+            <h1 id="stat4show"></h1>
+          </div>
+          <select name="stat" class="chose-stat" id="stat4">
+            <option value="--">--</option>
+          </select>
+        </div>
+        <div>
+          <div class="bonus center">
+            <h1 id="stat5show"></h1>
+          </div>
+          <select name="stat" class="chose-stat" id="stat5">
+            <option value="--">--</option>
+          </select>
+        </div>
+        <div>
+          <div class="bonus center">
+            <h1 id="stat6show"></h1>
+          </div>
+          <select name="stat" class="chose-stat" id="stat6">
+            <option value="--">--</option>
+          </select>
+        </div>
+      </div>
+      <div class="box center" id="roll-stats">
+        <h2>Roll</h2>
+      </div>
+      <div class="box center hidden" id="accept-stats">
+        <h2>Accept</h2>
+      </div>
+    </div>
+  </body>
+</html>
