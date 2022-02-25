@@ -1,6 +1,7 @@
 *{
     margin: auto auto auto auto;
     padding: 0px;
+    user-select: none;
 }
 
 body {
@@ -19,8 +20,6 @@ body {
     outline: 5px solid;
     
     margin: 20px auto;
-    
-    user-select: none;
 }
 
 .stats {

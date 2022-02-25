@@ -1,10 +1,3 @@
-let str = {
-  score: 0,
-  E_score: document.getElementById("str-score"),
-  bonus: 0,
-  E_bonus: document.getElementById("str-bonus"),
-};
-
 class Stat {
   stat;
   score;
@@ -21,10 +14,10 @@ class Stat {
     this.E_score = document.getElementById(`${stat}-score`);
     console.log(this.E_score);
     this.E_bonus = document.getElementById(`${stat}-bonus`);
-    this.UpdateStats();
+    this.Update();
   }
 
-  UpdateStats() {
+  Update() {
     this.bonus = (this.score >> 1) - 5;
     this.E_score.innerHTML = this.score;
     this.E_bonus.innerHTML =
@@ -33,7 +26,7 @@ class Stat {
 
   ChangeTo(value) {
     this.score = value;
-    this.UpdateStats();
+    this.Update();
   }
 
   static Roll() {
@@ -41,7 +34,7 @@ class Stat {
     let lowest = 0;
 
     for (let i = 0; i < 4; i++) {
-      let roll = RollDice(1, 6);
+      let roll = Dice.Roll(1, 6);
       if (roll < lowest || lowest === 0) {
         sum += lowest;
         lowest = roll;
@@ -54,104 +47,141 @@ class Stat {
   }
 }
 
-function RollDice(amount, dice) {
-  let result = 0;
-  for (let i = 0; i < amount; i++) {
-    result = Math.floor(Math.random() * dice + 1);
-  }
-  return result;
-}
+class Character {
+  name;
+  str = new Stat(10, "str");
+  dex = new Stat(10, "dex");
+  con = new Stat(10, "con");
+  int = new Stat(10, "int");
+  wis = new Stat(10, "wis");
+  cha = new Stat(10, "con");
 
+  constructor() {}
+
+  AssignStat(score, name) {
+    switch (name) {
+      case "str":
+        this.str.ChangeTo(score);
+        break;
+      case "dex":
+        this.dex.ChangeTo(score);
+        break;
+      case "con":
+        this.con.ChangeTo(score);
+        break;
+      case "int":
+        this.int.ChangeTo(score);
+        break;
+      case "wis":
+        this.wis.ChangeTo(score);
+        break;
+      case "cha":
+        this.cha.ChangeTo(score);
+        break;
+    }    
+  }  
+
+  static from(json) {
+    return Object.assign(new Character(), json);
+  }  
+
+  ayp() {
+    console.log("a");
+  }  
+}  
+
+let currentCharacter = new Character();
+// currentCharacter = Character.from(insert json here);
 // ------------------------------------------------------------ Roll Dice Buttons and Pop-Up ---------------------------------------------------------
 
-const RollType = {
-  Skill: 0,
-  Save: 1,
-  Proficiency: 2,
-};
+class Dice {
+  static Roll(amount, dice) {
+    let result = 0;
+    for (let i = 0; i < amount; i++) {
+      result = Math.floor(Math.random() * dice + 1);
+    }
+    return result;
+  }
 
-let currentRollResult = 0;
-let resultElement;
+  static currentRollResult = 0;
+  static resultElement;
 
-let rollPopUp = document.getElementById("roll-dice-popup");
-let rollDisplay = document.getElementById("display-roll-results");
+  static popUp = document.getElementById("roll-dice-popup");
+  static rollDisplay = document.getElementById("display-roll-results");
 
-let genericRoll = document.getElementById("generic-roll");
-genericRoll.addEventListener("click", function(){
-  DisplayRoll();
-  AddDiceRoll(20, 1, "Ayo")
-  AddRollBonus(2, "Str Bonus")
-});
+  static genericRoll = document.getElementById("generic-roll");
 
-function DisplayRoll() 
-{
-  currentRollResult = 0;
-  rollDisplay.innerHTML = "";
+  static Display() {
+    Dice.currentRollResult = 0;
+    Dice.rollDisplay.innerHTML = "";
 
-  resultElement = document.createElement("h1");
-  resultElement.innerHTML = `${currentRollResult} = `;
-  rollDisplay.appendChild(resultElement);
+    Dice.resultElement = document.createElement("h1");
+    Dice.resultElement.innerHTML = `${Dice.currentRollResult} = `;
+    Dice.rollDisplay.appendChild(Dice.resultElement);
 
-  rollPopUp.classList.remove("hidden");
-}
+    Dice.popUp.classList.remove("hidden");
+  }
 
-function UpdateResult() 
-{
-  resultElement.innerHTML = `${currentRollResult} = `;
-}
+  static UpdateResult() {
+    Dice.resultElement.innerHTML = `${Dice.currentRollResult} = `;
+  }
 
-let closeRollPopUp = document.getElementById("roll-dice-close");
-closeRollPopUp.addEventListener("click", HideRoll);
+  static closePopUp = document.getElementById("roll-dice-close");
 
-function HideRoll() {
-  rollPopUp.classList.add("hidden");
-}
+  static Hide() {
+    Dice.popUp.classList.add("hidden");
+  }
 
-function AddDiceRoll(Sides, Amount, Title) 
-{
-  for (let i = 0; i < Amount; i++) {
-    const roll = RollDice(1, Sides);
+  static AddRoll(Sides, Amount, Title) {
+    for (let i = 0; i < Amount; i++) {
+      const roll = Dice.Roll(1, Sides);
 
+      let container = document.createElement("div");
+      let title = document.createElement("p");
+      let dice = document.createElement("p");
+      let result = document.createElement("h1");
+
+      Dice.rollDisplay.appendChild(container);
+      container.classList.add("center");
+      container.appendChild(title);
+      title.innerHTML = Title;
+      container.appendChild(result);
+      result.innerHTML = roll;
+      container.appendChild(dice);
+      dice.innerHTML = `(${Sides})`;
+
+      Dice.currentRollResult += roll;
+    }
+    Dice.UpdateResult();
+  }
+
+  static AddBonus(Bonus, Title) {
     let container = document.createElement("div");
     let title = document.createElement("p");
-    let dice = document.createElement("p");
-    let result = document.createElement("h1");
-    
-    rollDisplay.appendChild(container);
-    container.classList.add("center");
-    container.appendChild(title);
-    title.innerHTML = Title;
-    container.appendChild(result);
-    result.innerHTML = roll;
-    container.appendChild(dice);
-    dice.innerHTML = `(${Sides})`;
-
-    currentRollResult += roll;
-  }
-  UpdateResult();
-}
-
-function AddRollBonus(Bonus, Title)
-{
-  let container = document.createElement("div");
-    let title = document.createElement("p");
     let bonus = document.createElement("h1");
-    
-    rollDisplay.appendChild(container);
+
+    Dice.rollDisplay.appendChild(container);
     container.classList.add("center");
     container.appendChild(title);
     title.innerHTML = Title;
     container.appendChild(bonus);
-    if (Bonus <= 0) {
+    if (Bonus >= 0) {
       bonus.innerHTML = `+${Bonus}`;
-    }
-    else 
-    {
+    } else {
       bonus.innerHTML = Bonus;
     }
-    currentRollResult += Bonus;
-    UpdateResult();
+    Dice.currentRollResult += Bonus;
+    Dice.UpdateResult();
+  }
 }
+
+Dice.genericRoll.addEventListener("click", function () {
+  Dice.Display();
+  Dice.AddRoll(20, 1, "Ayo");
+  Dice.AddBonus(currentCharacter.str.bonus, "Str Bonus");
+});
+
+Dice.closePopUp.addEventListener("click", Dice.Hide);
 
 // ------------------------------------------------------------ Assign Stats From Dice Pop-Up --------------------------------------------------------
 
@@ -181,7 +211,9 @@ let rollStatsButton = document.getElementById("roll-stats");
 rollStatsButton.addEventListener("click", RollNewStats);
 
 let acceptStatsButton = document.getElementById("accept-stats");
-acceptStatsButton.addEventListener("click", AcceptStats);
+acceptStatsButton.addEventListener("click", function () {
+  AcceptStats();
+});
 
 let rolledStats = [];
 
@@ -207,7 +239,7 @@ function RollNewStats() {
 
 function AcceptStats() {
   for (let i = 0; i < rolledStats.length; i++) {
-    new Stat(rolledStats[i], choseStats[i].value);
+    currentCharacter.AssignStat(rolledStats[i], choseStats[i].value);
   }
   rollPopupWindow.classList.add("hidden");
 }
