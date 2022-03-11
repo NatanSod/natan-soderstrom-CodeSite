@@ -61,12 +61,12 @@ body {
 }
 
 .popup {
+    display: inline-block;
     position: fixed;
     left: 50%;
     top: 50%;
 
     transform: translate(-50%, -50%);
-    width: 50%;
     background-color: bisque;
     border: 2px solid black;
 
@@ -79,7 +79,7 @@ body {
 }
 
 .flex {
-    display: flex;
+    display: inline-flex;
 }
 
 .x {
@@ -100,4 +100,8 @@ body {
 
 .center {
     text-align: center;
+}
+
+.margin {
+    margin: 0px 30px;
 }

@@ -134,8 +134,8 @@
         let result = document.createElement("h1");
 
         Dice.rollDisplay.appendChild(container);
-        container.classList.add("center");
-        container.appendChild(title);
+        container.classList.add("center", "margin");
+        container.appendChild(title); 
         title.innerHTML = Title;
         container.appendChild(result);
         result.innerHTML = roll;
