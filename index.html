@@ -18,6 +18,9 @@
           <div class="score">
             <p id="str-score" class="center">10</p>
           </div>
+          <div id="str-roll" class="box center">
+            <p>Roll</p>
+          </div>
         </div>
 
         <div class="bonus center">
@@ -25,6 +28,9 @@
           <h1 id="dex-bonus">+0</h1>
           <div class="score">
             <p id="dex-score" class="center">10</p>
+          </div>
+          <div id="dex-roll" class="box center">
+            <p>Roll</p>
           </div>
         </div>
 
@@ -34,6 +40,9 @@
           <div class="score">
             <p id="con-score" class="center">10</p>
           </div>
+          <div id="con-roll" class="box center">
+            <p>Roll</p>
+          </div>
         </div>
 
         <div class="bonus center">
@@ -41,6 +50,9 @@
           <h1 id="int-bonus">+0</h1>
           <div class="score">
             <p id="int-score" class="center">10</p>
+          </div>
+          <div id="int-roll" class="box center">
+            <p>Roll</p>
           </div>
         </div>
 
@@ -50,6 +62,9 @@
           <div class="score">
             <p id="wis-score" class="center">10</p>
           </div>
+          <div id="wis-roll" class="box center">
+            <p>Roll</p>
+          </div>
         </div>
 
         <div class="bonus center">
@@ -58,9 +73,246 @@
           <div class="score">
             <p id="cha-score" class="center">10</p>
           </div>
+          <div id="cha-roll" class="box center">
+            <p>Roll</p>
+          </div>
         </div>
       </div>
       
+      <div class="saves">
+        <div class="box flex">
+          <div id="str-prof" class="proficiency"></div>
+          <div class="slight-width center">
+            <p>str</p>
+            <p id="str-save" class="">0</p>
+          </div>
+          <div id="str-save-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="dex-prof" class="proficiency"></div>
+          <div class="slight-width center">
+            <p>dex</p>
+            <p id="dex-save" class="">0</p>
+          </div>
+          <div id="dex-save-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="con-prof" class="proficiency"></div>
+          <div class="slight-width center">
+            <p>con</p>
+            <p id="con-save" class="">0</p>
+          </div>
+          <div id="con-save-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="int-prof" class="proficiency"></div>
+          <div class="slight-width center">
+            <p>int</p>
+            <p id="int-save" class="">0</p>
+          </div>
+          <div id="int-save-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="wis-prof" class="proficiency"></div>
+          <div class="slight-width center">
+            <p>wis</p>
+            <p id="wis-save" class="">0</p>
+          </div>
+          <div id="wis-save-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="cha-prof" class="proficiency"></div>
+          <div class="slight-width center">
+            <p>cha</p>
+            <p id="cha-save" class="">0</p>
+          </div>
+          <div id="cha-save-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <h2>Saving Throws</h2>
+      </div>
+
+      <div class="skills">
+        <div class="box flex">
+          <div id="Acrobatics-prof" class="proficiency"></div>
+          <p id="Acrobatics">0</p>
+          <p>Acrobatics <span class="slightly-grey">(dex)</span></p>
+          <div id="Acrobatics-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Animal-Handling-prof" class="proficiency"></div>
+          <p id="Animal-Handling">0</p>
+          <p>Animal Handling <span class="slightly-grey">(wis)</span></p>
+          <div id="Animal-Handling-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Arcana-prof" class="proficiency"></div>
+          <p id="Arcana">0</p>
+          <p>Arcana <span class="slightly-grey">(int)</span></p>
+          <div id="Arcana-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Athletics-prof" class="proficiency"></div>
+          <p id="Athletics">0</p>
+          <p>Athletics <span class="slightly-grey">(str)</span></p>
+          <div id="Athletics-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Deception-prof" class="proficiency"></div>
+          <p id="Deception">0</p>
+          <p>Deception <span class="slightly-grey">(cha)</span></p>
+          <div id="Deception-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="History-prof" class="proficiency"></div>
+          <p id="History">0</p>
+          <p>History <span class="slightly-grey">(int)</span></p>
+          <div id="History-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Insight-prof" class="proficiency"></div>
+          <p id="Insight">0</p>
+          <p>Insight <span class="slightly-grey">(wis)</span></p>
+          <div id="Insight-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Intimidation-prof" class="proficiency"></div>
+          <p id="Intimidation">0</p>
+          <p>Intimidation <span class="slightly-grey">(cha)</span></p>
+          <div id="Intimidation-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Investigation-prof" class="proficiency"></div>
+          <p id="Investigation">0</p>
+          <p>Investigation <span class="slightly-grey">(int)</span></p>
+          <div id="Investigation-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Medicine-prof" class="proficiency"></div>
+          <p id="Medicine">0</p>
+          <p>Medicine <span class="slightly-grey">(wis)</span></p>
+          <div id="Medicine-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Nature-prof" class="proficiency"></div>
+          <p id="Nature">0</p>
+          <p>Nature <span class="slightly-grey">(int)</span></p>
+          <div id="Nature-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+        
+        <div class="box flex">
+          <div id="Perception-prof" class="proficiency"></div>
+          <p id="Perception">0</p>
+          <p>Perception <span class="slightly-grey">(wis)</span></p>
+          <div id="Perception-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Performance-prof" class="proficiency"></div>
+          <p id="Performance">0</p>
+          <p>Performance <span class="slightly-grey">(cha)</span></p>
+          <div id="Performance-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Persuasion-prof" class="proficiency"></div>
+          <p id="Persuasion">0</p>
+          <p>Persuasion <span class="slightly-grey">(cha)</span></p>
+          <div id="Persuasion-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Religion-prof" class="proficiency"></div>
+          <p id="Religion">0</p>
+          <p>Religion <span class="slightly-grey">(int)</span></p>
+          <div id="Religion-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Sleight-of-Hand-prof" class="proficiency"></div>
+          <p id="Sleight-of-Hand">0</p>
+          <p>Sleight of Hand <span class="slightly-grey">(dex)</span></p>
+          <div id="Sleight-of-Hand-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Stealth-prof" class="proficiency"></div>
+          <p id="Stealth">0</p>
+          <p>Stealth <span class="slightly-grey">(dex)</span></p>
+          <div id="Stealth-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+
+        <div class="box flex">
+          <div id="Survival-prof" class="proficiency"></div>
+          <p id="Survival">0</p>
+          <p>Survival <span class="slightly-grey">(wis)</span></p>
+          <div id="Survival-roll" class="box center">
+            <p>Roll</p>
+          </div>
+        </div>
+      </div>
+
       <div class="box center" id="change-stats">
         <h1>Change stats</h1>
       </div>

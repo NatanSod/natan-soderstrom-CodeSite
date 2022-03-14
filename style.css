@@ -16,19 +16,43 @@ body {
 }
 
 .box {
-    width: 200px;
+    display: inline-block;
+    padding: 3px 10px;
     outline: 5px solid;
     
-    margin: 20px auto;
+    margin: 10px auto;
+
+    
+    background-color: white;
 }
 
 .stats {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
 
     padding: 20px;
     border: 5px solid;
     width: 100px;
+    margin: auto;
+}
+
+.saves {
+    display: inline-flex;
+    flex-direction: column;
+
+    padding: 20px;
+    border: 5px solid;
+    padding: 20px;
+    margin: auto;
+}
+
+.skills {
+    display: inline-flex;
+    flex-direction: column;
+
+    padding: 20px;
+    border: 5px solid;
+    padding: 20px;
     margin: auto;
 }
 
@@ -45,6 +69,35 @@ body {
     position: relative;
 }
 
+.proficiency {
+    width: 10px;
+    height: 10px;
+    
+    background-color: white;
+    border: 2px solid black;
+    margin: auto 10px;
+}
+
+.proficiency.has {
+    background-color: black;
+}
+
+.stats > .bonus {
+    margin-bottom: 50px;
+}
+
+.saves > .box {
+    width: 150px;
+}
+
+.skills > .box{
+    width: 260px;
+}
+
+.skills > .box > p + p {
+    margin: auto 10px;
+    width: 170px;
+}
 .score {
     width: 20px;
     height: 20px;
@@ -104,4 +157,12 @@ body {
 
 .margin {
     margin: 0px 30px;
+}
+
+.slight-width {
+    width: 20px;
+}
+
+.slightly-grey{
+    color: gray;
 }
