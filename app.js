@@ -6,9 +6,9 @@
 // When it is written like this, it is impossible for a user to access functions and variables through the console,
 // which is why I currently have them commented out for debug purposes
 //(function () {
-  /**
-   * @param {Element | Node} oldElement 
-   */
+/**
+ * @param {Element | Node} oldElement
+ */
 function ResetElement(oldElement) {
   let newElement = oldElement.cloneNode(true);
   oldElement.parentNode.replaceChild(newElement, oldElement);
@@ -54,37 +54,36 @@ class Stat {
 
   /**
    * @param {Character} owner
-   * @param {number} score 
-   * @param {string} stat 
-   * @param {{skills: string[], saves: string[], items: string[]}} profs 
-   * @param {{bonus: number, base: number}} profMod 
+   * @param {number} score
+   * @param {string} name
+   * @param {{skills: string[], saves: string[], items: string[]}} profs
+   * @param {{bonus: number, base: number}} profMod
    */
-  constructor(owner, score, stat, profs, profMod) {
-    this.owner = owner
-    this.name = stat;
+  constructor(owner, score, name, profs, profMod) {
+    this.owner = owner;
+    this.name = name;
     this.score = score;
     // I am cool! Instead of dividing by 2 and rounding down I instead bit-shifted to the right!
     // It's cool because it does both in one and is less computationally demanding! (Or so I hear)
     this.bonus = (score >> 1) - 5;
 
-    this.E_score = document.querySelector(`#${stat}-score`);
-    this.E_bonus = document.querySelector(`#${stat}-bonus`);
-    this.E_roll = document.querySelector(`#${stat}-roll`);
-    this.E_save = document.querySelector(`#${stat}-save`);
-    this.E_saveRoll = document.querySelector(`#${stat}-save-roll`);
+    this.E_score = document.querySelector(`#${name}-score`);
+    this.E_bonus = document.querySelector(`#${name}-bonus`);
+    this.E_roll = document.querySelector(`#${name}-roll`);
+    this.E_save = document.querySelector(`#${name}-save`);
+    this.E_saveRoll = document.querySelector(`#${name}-save-roll`);
 
     this.E_roll = ResetElement(this.E_roll);
     this.E_roll.addEventListener("click", this.RollStat.bind(this));
 
     this.saveProf = profs.saves.includes(this.name);
     this.save = this.bonus + (this.saveProf ? profMod.bonus : profMod.base);
-    console.log(profs.saves);
     if (this.saveProf) {
-      document.querySelector(`#${stat}-prof`).classList.add("has");
+      document.querySelector(`#${name}-prof`).classList.add("has");
     }
-    
+
     this.E_saveRoll = ResetElement(this.E_saveRoll);
-    this.E_saveRoll.addEventListener('click', this.RollSave.bind(this));
+    this.E_saveRoll.addEventListener("click", this.RollSave.bind(this));
 
     this.Update();
   }
@@ -94,27 +93,30 @@ class Stat {
     this.E_bonus.innerHTML =
       this.bonus >= 0 ? `+${this.bonus}` : `${this.bonus}`;
     this.E_save.innerHTML = this.save.toString();
-    
   }
 
   /**
-   * @param {number} value 
+   * @param {number} value
    */
   ChangeTo(value) {
     this.score = value;
     this.bonus = (this.score >> 1) - 5;
-    this.save = this.bonus + (this.owner.prof.saves.includes(this.name) ? this.owner.prof.bonus : this.owner.prof.base);
+    this.save =
+      this.bonus +
+      (this.owner.prof.saves.includes(this.name)
+        ? this.owner.prof.bonus
+        : this.owner.prof.base);
     this.Update();
     this.owner.UpdateSkills(this.name);
   }
 
-  RollStat () {
+  RollStat() {
     Dice.Display();
     Dice.AddRoll(20, 1, "Ayo");
     Dice.AddBonus(this.bonus, `${this.name}-Bonus`);
   }
 
-  RollSave () {
+  RollSave() {
     Dice.Display();
     Dice.AddRoll(20, 1, "Ayo");
     Dice.AddBonus(this.bonus, `${this.name}-Bonus`);
@@ -146,34 +148,36 @@ class Stat {
 class Character {
   /** @type {string} */
   name;
-  
+
   /** @type {Stat[]} */
   stats = [];
 
   /** @type {{bonus: number, base: number, skills: string[], saves: string[], items: string[]}} */
-  prof = { bonus: 2, base: 0, skills: [], saves: [], items: []};
+  prof = { bonus: 2, base: 0, skills: [], saves: [], items: [] };
 
-  /** 
+  /**
    * @param {{score: number, stat: string}[]} stats
    * @param {{skills: string[], saves: string[], items: string[]}} profs
-  */
+   */
   constructor(stats, profs) {
     this.prof.skills = profs.skills;
     this.prof.items = profs.items;
     this.prof.saves = profs.saves;
-    this.stats = stats.map(stat => new Stat(this, stat.score, stat.stat, this.prof, this.prof));
+    this.stats = stats.map(
+      (stat) => new Stat(this, stat.score, stat.stat, this.prof, this.prof)
+    );
     this.UpdateSkills("all");
-  }
-  
-  /**
-   * @param {string} statName 
-   */
-  GetStat(statName) {
-    return this.stats.find(stat => stat.name === statName);
   }
 
   /**
-   * @param {string | string[]} skills 
+   * @param {string} statName
+   */
+  GetStat(statName) {
+    return this.stats.find((stat) => stat.name === statName);
+  }
+
+  /**
+   * @param {string | string[]} skills
    */
   UpdateSkills(skills) {
     if (Array.isArray(skills)) {
@@ -181,7 +185,7 @@ class Character {
         this.#update("all");
         return;
       }
-      skills.forEach(skill => {
+      skills.forEach((skill) => {
         this.#update(skill);
       });
     } else {
@@ -190,13 +194,13 @@ class Character {
   }
 
   /** @param {string} skill */
-  #update (skill) {
+  #update(skill) {
     /**
-     * @param {string} skill 
+     * @param {string} skill
      * @param {string} stat
-     * @param {number} statBonus 
-     * @param {number} profBonus 
-     * @param {boolean} isProf 
+     * @param {number} statBonus
+     * @param {number} profBonus
+     * @param {boolean} isProf
      */
     function updateElement(skill, stat, statBonus, profBonus, isProf) {
       const E_dis = document.querySelector(`#${skill}`);
@@ -213,9 +217,11 @@ class Character {
 
       E_roll = ResetElement(E_roll);
 
-      E_roll.addEventListener('click', function () {
+      E_roll.addEventListener("click", function () {
         Dice.Display();
+
         Dice.AddRoll(20, 1, "Ayo");
+
         Dice.AddBonus(statBonus, `${stat}-Bonus`);
         if (isProf) {
           Dice.AddBonus(profBonus, "Proficiency");
@@ -226,7 +232,7 @@ class Character {
     }
 
     if (skill === "all") {
-      listOfSkills.forEach(skill => {
+      listOfSkills.forEach((skill) => {
         const statBonus = this.GetStat(skill.stat).bonus;
         const profBonus = this.ProfBonusFor(skill.name);
         const isProf = profBonus === this.prof.bonus;
@@ -238,16 +244,18 @@ class Character {
 
     if (skill.length === 3) {
       const statBonus = this.GetStat(skill).bonus;
-      const skills = listOfSkills.filter(sk => sk.stat === skill).map(sk => sk.name);
+      const skills = listOfSkills
+        .filter((sk) => sk.stat === skill)
+        .map((sk) => sk.name);
 
-      skills.forEach(sk => {
+      skills.forEach((sk) => {
         const profBonus = this.ProfBonusFor(sk);
         const isProf = profBonus === this.prof.bonus;
-        
+
         updateElement(sk, skill, statBonus, profBonus, isProf);
       });
     } else {
-      const stat = listOfSkills.find(stat => stat.name === skill).stat;
+      const stat = listOfSkills.find((stat) => stat.name === skill).stat;
       const statBonus = this.GetStat(stat).bonus;
       const profBonus = this.ProfBonusFor(skill);
       const isProf = profBonus === this.prof.bonus;
@@ -257,13 +265,16 @@ class Character {
   }
 
   /**
-   * @param {string} prof 
+   * @param {string} prof
    */
   ProfBonusFor(prof) {
-    if (this.prof.skills.includes(prof) || this.prof.saves.includes(prof) || this.prof.items.includes(prof))
-    return this.prof.bonus;
-    else 
-    return this.prof.base;
+    if (
+      this.prof.skills.includes(prof) ||
+      this.prof.saves.includes(prof) ||
+      this.prof.items.includes(prof)
+    )
+      return this.prof.bonus;
+    else return this.prof.base;
   }
 
   // static from(json) {
@@ -292,9 +303,6 @@ class Dice {
   static genericRoll = document.querySelector("#generic-roll");
 
   static Display() {
-    Dice.currentRollResult = 0;
-    Dice.rollDisplay.innerHTML = "";
-
     Dice.resultElement = document.createElement("h1");
     Dice.resultElement.innerHTML = `${Dice.currentRollResult} = `;
     Dice.rollDisplay.appendChild(Dice.resultElement);
@@ -310,12 +318,15 @@ class Dice {
 
   static Hide() {
     Dice.popUp.classList.add("hidden");
+
+    Dice.currentRollResult = 0;
+    Dice.rollDisplay.innerHTML = "";
   }
 
   /**
-   * @param {number} Sides 
-   * @param {number} Amount 
-   * @param {string} Title 
+   * @param {number} Sides
+   * @param {number} Amount
+   * @param {string} Title
    */
   static AddRoll(Sides, Amount, Title) {
     for (let i = 0; i < Amount; i++) {
@@ -371,6 +382,17 @@ Dice.closePopUp.addEventListener("click", Dice.Hide);
 // |                                                                 Character Creation                                                              |
 // +-------------------------------------------------------------------------------------------------------------------------------------------------+
 
+/**
+ * @type {{
+ * n: string,
+ * l: number,
+ * h: number,
+ * s: {score: number, stat: string}[],
+ * r: string,
+ * c: string,
+ * i: boolean,
+ * }}
+ */
 let tempChar = {
   // Name
   n: "",
@@ -379,7 +401,7 @@ let tempChar = {
   // Health Points
   h: 0,
   // Stats
-  s: { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 },
+  s: [],
   // Race
   r: "",
   // Class (It didn't like when I called it "class" so I changed it to c and decided that the rest should follow)
@@ -398,12 +420,15 @@ closeStats.addEventListener("click", HideChangeStats);
 
 let rollPopupWindow = document.querySelector("#roll-stats-popup");
 
+/** @type {Element[]} */
 let statHolders = [];
+/** @type {HTMLSelectElement[]} */
 let choseStats = [];
 for (let i = 1; i <= 6; i++) {
   statHolders.push(document.querySelector(`#stat${i}show`));
   //dodo was a temporary name for testing and then when it worked I couldn't think of a better one
   let dodo = document.querySelector(`#stat${i}`);
+  // @ts-ignore
   choseStats.push(dodo);
   dodo.addEventListener("input", UpdateOptions);
 }
@@ -416,6 +441,7 @@ acceptStatsButton.addEventListener("click", function () {
   AcceptStats();
 });
 
+/** @type {number[]} */
 let rolledStats = [];
 
 function ShowChangeStats() {
@@ -434,17 +460,15 @@ function RollNewStats() {
   for (let i = 0; i < statHolders.length; i++) {
     let roll = Stat.Roll();
     rolledStats.push(roll);
-    statHolders[i].innerHTML = roll;
+    statHolders[i].innerHTML = roll.toString();
   }
 }
 
 function AcceptStats() {
-  tempChar.s.str = rolledStats[choseStats.indexOf("str")];
-  tempChar.s.dex = rolledStats[choseStats.indexOf("dex")];
-  tempChar.s.con = rolledStats[choseStats.indexOf("con")];
-  tempChar.s.int = rolledStats[choseStats.indexOf("int")];
-  tempChar.s.wis = rolledStats[choseStats.indexOf("wis")];
-  tempChar.s.cha = rolledStats[choseStats.indexOf("cha")];
+  for (let i = 0; i < rolledStats.length; i++) {
+    currentCharacter.GetStat(choseStats[i].value).ChangeTo(rolledStats[i]);
+    tempChar.s.push({ score: rolledStats[i], stat: choseStats[i].value });
+  }
 
   rollPopupWindow.classList.add("hidden");
 }
@@ -498,7 +522,7 @@ function UpdateOptions() {
 
 // ------------------------------------------------------------------ Things and Stuff ---------------------------------------------------------------
 
-let currentCharacter = new Character( 
+let currentCharacter = new Character(
   [
     { score: 12, stat: "str" },
     { score: 10, stat: "dex" },
@@ -508,7 +532,9 @@ let currentCharacter = new Character(
     { score: 10, stat: "cha" },
   ],
   {
-    skills: ["Acrobatics"], saves:["str"], items: []
+    skills: ["Acrobatics"],
+    saves: ["str"],
+    items: [],
   }
 );
 
