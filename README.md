@@ -6,14 +6,32 @@ This is a web application to make the part of a character that has direct effect
 This application is going to contain the features described in the **Player's Handbook** and **Dungeon Master's Guide** pertaining to characters and their creation, as well as the ability to add your own, because Home-Brewing is fun and there is no way this can cover everything.
 
 ## Contents:
-In the **How To Use** section there will be a description of how to use it (once you will be able to).
+In the **How To Use** section there is a description of how to use it, one I wish contained less code.
 
 In the **Code Plan And Structure** section of this file you will find my plans for how it *will* work, because at the moment it doesn't. When I get things working, there *will* be a description of that as well/instead.
 
 In the **What I Wish I Could Do** section I describe the additions I would make to this application if I had more of the things I lack.
 
 # How To Use:
-As it currently does not exist, there is no way to use it.
+As it is currently, it doesn't really work unless you want to use the console. You can assign stats through rolling by pressing the "Change stats" button at the bottom.
+
+If you want to change a specific stat to a specific value you need to write 
+```js
+currentCharacter.GetStat(stat).ChangeTo(score)
+```
+Where `stat`is the 3 letter string representing the stat (in lower case) and `score` is the score you want to give it.
+
+If you want to change the list of proficiencies, write 
+```js
+currentCharacter.profs.skills = sk; // For skills
+// or
+currentCharacter.profs.saves = sa; // For saving throws
+// and always
+currentCharacter.UpdateSkills("all"); // To update the functionality and display
+```
+Where `sk` is an array of the names of skills as strings, written the way you see in the list of skills, and `sa` is an array of strings with the 3 letter representation of the stat.
+
+And then to roll dice just press the buttons.
 
 # Code Plan And Structure:
 As stated in the beginning of this document, this will focus on the things that have "**direct effect on gameplay**", because creating people isn't something you can optimize through code, though there will be some basic features for that, at the very least it will allow you to save a link to a Google Document.
